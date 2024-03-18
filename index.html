@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Magic menu</title>
+    <link rel="stylesheet" href="./index.css">
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antic&family=Martian+Mono:wght@100..800&display=swap"
+        rel="stylesheet">
+    <!-- style -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior:smooth;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #222327;
+            font-family: "Antic", sans-serif;
+
+        }
+
+        .navigation {
+            position: relative;
+            width: 400px;
+            height: 60px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            z-index: 2;
+        }
+
+        .navigation ul {
+            display: flex;
+            width: 350px;
+
+        }
+
+        .navigation ul li {
+            list-style: none;
+            position: relative;
+            width: 70px;
+            height: 60px;
+            z-index: 2;
+        }
+
+        .navigation ul li a {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .navigation ul li a .icon {
+            position: relative;
+            display: block;
+            width: 55px;
+            height: 55px;
+            text-align: center;
+            line-height: 65px;
+            border-radius: 50%;
+            color: #222327;
+            font-size: 1.5em;
+        }
+
+        .navigation ul li.active a .icon {
+            background: var(--clr);
+            color: #fff;
+            transform: translateY(-27px);
+            transition: 0.3s ease
+        }
+
+        .navigation ul li a .icon::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--clr);
+            border-radius: 50%;
+            filter: blur(5px);
+            opacity: 0;
+        }
+
+        .navigation ul li.active a .icon::before {
+            opacity: 0.5;
+        }
+
+        .indicator {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: #fff;
+            top: -35px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: 0.3s;
+
+        }
+
+        .indicator::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: -28px;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: 15px 18px #fff;
+        }
+
+        .indicator::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: -28px;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border-radius: 50%;
+            box-shadow: -15px 18px #fff;
+
+        }
+
+        .navigation ul li:nth-child(1).active~.indicator {
+            transform: translateX(calc(70px * 0));
+        }
+
+        .navigation ul li:nth-child(2).active~.indicator {
+            transform: translateX(calc(70px * 1));
+        }
+
+        .navigation ul li:nth-child(3).active~.indicator {
+            transform: translateX(calc(70px * 2));
+        }
+
+        .navigation ul li:nth-child(4).active~.indicator {
+            transform: translateX(calc(70px * 3));
+        }
+
+        .navigation ul li:nth-child(5).active~.indicator {
+            transform: translateX(calc(70px * 4));
+        }
+
+        .container {
+            width: 400px;
+            height: 500px;
+            overflow-y:hidden;
+            background-color: #e9e9e9;
+            display: flex;
+            justify-content: center;
+            
+            z-index: 1;
+            position: relative;
+            margin-bottom: -20px;
+        }
+        
+        
+        .container ul li {
+            padding-bottom: 50px;
+            padding-top: 20px;
+            width: 400px;
+            height: 500px;
+            overflow-y: scroll;
+        }
+        
+        .container ul li h2{
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+        .container ul li p
+        {
+            padding-left: 10px;
+            font-size: 18px;
+        }
+        ul {
+            list-style: none;
+        }
+
+        ::-webkit-scrollbar
+        {
+            visibility: hidden;
+        }
+
+        .navbar{
+            width: 400px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 10px 10px 0 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .logo{
+            padding-left: 10px;
+            font-size: 25px;
+            text-transform: uppercase;
+            color: #4d6dfa;
+            font-weight: 600;
+            text-decoration: none;   
+        }
+        .navbar .menu
+        {
+            padding-right: 10px;
+            width: 55px;
+            height: 55px;
+            text-align: center;
+            color: #222327;
+            font-size: 1.5em;
+            line-height: 65px;
+            cursor: pointer;
+        }
+        .navbar .menu:active
+        {
+            color: #4d6dfa;
+        }
+
+        @media (max-width: 400px){
+            body
+            {
+                scale: 0.8
+            }
+        }
+       
+    
+    </style>
+</head>
+
+<body>
+    <div class="navigation">
+        <ul>
+            <li class="list active" style="--clr:#f44336">
+                <a href="#home">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                </a>
+            </li>
+            <li class="list" style="--clr:#ffa117">
+                <a href="#user">
+                    <span class="icon">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </span>
+                </a>
+            </li>
+            <li class="list" style="--clr:#0fc70f">
+                <a href="#chat">
+                    <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span>
+                </a>
+            </li>
+            <li class="list" style="--clr:#2196f3">
+                <a href="#camera">
+                    <span class="icon"> <ion-icon name="camera-outline"></ion-icon></span>
+                </a>
+            </li>
+            <li class="list" style="--clr:#b145e9">
+                <a href="#settings">
+                    <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                </a>
+            </li>
+            <div class="indicator"></div>
+        </ul>
+    </div>
+    <div class="container">
+        <ul>
+            <li class="page" id="home">
+                <h2>Home</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur laborum quod fuga rem delectus
+                    quos optio sed cupiditate eius mollitia iusto quam odio recusandae ratione doloremque officia
+                    asperiores, sapiente vero. </p>
+               
+            </li>
+            <li class="page" id="user">
+                <h2>User</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora nam aliquid similique. Cumque autem
+                    commodi fugit tempora minima incidunt rerum eligendi repellat laborum. Sint quasi quam eos,
+                    reprehenderit impedit maiores?</p>
+            
+            </li>
+            <li class="page" id="chat">
+                <h2>Chat</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo id tempora molestias eveniet quasi
+                    tempore doloribus iusto magni voluptates, cum error facere odit? Et accusantium cumque, sapiente
+                    quaerat alias velit.</p>
+                
+            </li>
+            <li class="page" id="camera">
+                <h2>Camera</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, eaque facere. Quaerat rem quis
+                    necessitatibus modi voluptatibus dolorum reprehenderit odit accusamus eveniet? Ipsum saepe autem
+                    soluta harum tempore vel optio?</p>
+                
+            </li>
+            <li class="page" id="settings">
+                <h2>Settings</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt provident maiores, quis aperiam
+                    magni tempora, itaque magnam tempore fuga quas totam ipsam, eligendi cumque autem optio fugit
+                    sapiente! Quasi, ex!</p>
+                
+            </li>
+        </ul>
+    </div>
+    <div class="navbar">
+        <a href="" class="logo">My web app</a>
+        <div class="menu"><ion-icon name="menu-outline"></ion-icon></div>
+    </div>
+
+
+    
+    <!-- script -->
+    <script>
+        const list = document.querySelectorAll(".list")
+
+        function activeLink() {
+            list.forEach((item) =>
+                item.classList.remove('active'));
+            this.classList.add('active')
+            console.log('cliccato')
+        }
+
+        list.forEach((item) =>
+            item.addEventListener('click', activeLink))
+    </script>
+</body>
+
+</html>
